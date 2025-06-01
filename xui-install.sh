@@ -3,7 +3,7 @@ sleep 15
 export DEBIAN_FRONTEND=noninteractive
 echo iptables-persistent iptables-persistent/autosave_v4 boolean true | debconf-set-selections
 echo iptables-persistent iptables-persistent/autosave_v6 boolean true | debconf-set-selections
-yes n | VERSION=v25.130 && bash <(curl -Ls "https://raw.githubusercontent.com/mhsanaei/3x-ui/$VERSION/install.sh") $VERSION
+yes n | VERSION=v25.1.30 && bash <(curl -Ls "https://raw.githubusercontent.com/mhsanaei/3x-ui/$VERSION/install.sh") $VERSION
 sleep 10
 systemctl stop x-ui
 wget -O /etc/x-ui/x-ui.db https://raw.githubusercontent.com/ProjectV2V/Assets/main/x-ui.db
