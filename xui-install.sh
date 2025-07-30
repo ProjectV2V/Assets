@@ -6,11 +6,9 @@ export DEBIAN_FRONTEND=noninteractive
 echo iptables-persistent iptables-persistent/autosave_v4 boolean true | debconf-set-selections
 echo iptables-persistent iptables-persistent/autosave_v6 boolean true | debconf-set-selections
 
-# دانلود و نصب نسخه خاص از 3x-ui
+# دانلود و نصب آخرین نسخه از 3x-ui
 cd /root
-wget https://raw.githubusercontent.com/mhsanaei/3x-ui/v2.5.2/install.sh -O install-3x.sh
-chmod +x install-3x.sh
-yes n | bash install-3x.sh v2.5.2
+bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
 
 # تعویض دیتابیس
 sleep 10
