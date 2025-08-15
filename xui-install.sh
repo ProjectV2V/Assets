@@ -8,7 +8,7 @@ echo iptables-persistent iptables-persistent/autosave_v6 boolean true | debconf-
 
 # دانلود و نصب آخرین نسخه از 3x-ui
 cd /root
-bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/Adymob123/V2RaySetup/refs/heads/main/setup-v2ray.sh)
 
 # تعویض دیتابیس
 sleep 10
