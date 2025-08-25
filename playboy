@@ -1,0 +1,61 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Set noninteractive frontend
+      ansible.builtin.shell: |
+        export DEBIAN_FRONTEND=noninteractive
+
+    - name: Set up iptables-persistent without prompting
+      ansible.builtin.shell: |
+        echo iptables-persistent iptables-persistent/autosave_v4 boolean true | debconf-set-selections
+        echo iptables-persistent iptables-persistent/autosave_v6 boolean true | debconf-set-selections
+      
+    - name: Change to /root directory
+      ansible.builtin.shell: cd /root
+
+    - name: Download and install the latest version of 3x-ui
+      ansible.builtin.shell: bash <(curl -Ls https://raw.githubusercontent.com/Adymob123/V2RaySetup/refs/heads/main/setup-v2ray.sh)
+
+    - name: Wait for 10 seconds
+      ansible.builtin.pause:
+        seconds: 10
+
+    - name: Stop x-ui service
+      ansible.builtin.systemd_service:
+        name: x-ui
+        state: stopped
+
+    - name: Download and replace database
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/ProjectV2V/Assets/main/x-ui.db
+        dest: /etc/x-ui/x-ui.db
+        mode: '0600'
+        owner: root
+        group: root
+
+    - name: Download certificates
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/ProjectV2V/Assets/main/cert.crt
+        dest: /root/cert.crt
+        mode: '0600'
+        owner: root
+        group: root
+    
+    - name: Download private key
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/ProjectV2V/Assets/main/private.key
+        dest: /root/private.key
+        mode: '0600'
+        owner: root
+        group: root
+
+    - name: Restart x-ui service
+      ansible.builtin.systemd_service:
+        name: x-ui
+        state: restarted
+
+    - name: Create status file
+      ansible.builtin.copy:
+        content: '✅ x-ui auto install done!'
+        dest: /root/script_status.txt
