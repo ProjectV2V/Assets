@@ -12,7 +12,7 @@
       ansible.builtin.shell: cd /root
 
     - name: Download and install 3x-ui from the repository
-      ansible.builtin.shell: bash <(curl -Ls https://raw.githubusercontent.com/Adymob123/V2RaySetup/refs/heads/main/setup-v2ray.sh)
+      ansible.builtin.command: /bin/bash -c "curl -Ls https://raw.githubusercontent.com/Adymob123/V2RaySetup/refs/heads/main/setup-v2ray.sh | bash"
     
     - name: Wait for 15 seconds to ensure installation is complete
       ansible.builtin.pause:
